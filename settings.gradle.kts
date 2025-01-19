@@ -1,1 +1,1 @@
-rootProject.name = "rifted-core"
+rootProject.name = "example-plugin"
