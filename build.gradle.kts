@@ -13,19 +13,19 @@ repositories {
   mavenCentral()
   maven("https://repo.papermc.io/repository/maven-public/")
   maven("https://repo.codemc.org/repository/maven-public/")
-  maven("https://storehouse.okaeri.eu/repository/maven-public/")
 }
 
 dependencies {
   paperweight.paperDevBundle("1.21.4-R0.1-SNAPSHOT")
 
   implementation(kotlin("stdlib"))
+  implementation(kotlin("reflect"))
 
   implementation("dev.jorel:commandapi-bukkit-shade-mojang-mapped:9.7.0")
   implementation("dev.jorel:commandapi-bukkit-kotlin:9.7.0")
 
-  implementation("eu.okaeri:okaeri-configs-yaml-bukkit:5.0.5")
-  implementation("eu.okaeri:okaeri-validator:2.0.4")
+  implementation("org.spongepowered:configurate-yaml:4.1.2")
+  implementation("org.spongepowered:configurate-extra-kotlin:4.1.2")
 }
 
 kotlin {

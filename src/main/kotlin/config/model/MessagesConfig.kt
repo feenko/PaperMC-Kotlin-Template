@@ -1,14 +1,13 @@
 package com.example.example.config.model
 
-import eu.okaeri.configs.OkaeriConfig
-import eu.okaeri.configs.annotation.Comment
-import eu.okaeri.configs.annotation.Header
+import org.spongepowered.configurate.objectmapping.ConfigSerializable
+import org.spongepowered.configurate.objectmapping.meta.Comment
 
-@Header("# Example Messages Config")
-class MessagesConfig : OkaeriConfig() {
+@ConfigSerializable
+data class MessagesConfig(
   @Comment("Message shown when using /example hello command")
-  var helloWorld: String = "<green>Hello World!</green>"
+  val helloWorld: String = "<green>Hello World!</green>",
 
   @Comment("Message shown when configuration is reloaded")
-  var reloadSuccess: String = "<green>Configuration reloaded successfully!</green>"
-}
+  val reloadSuccess: String = "<green>Configuration reloaded successfully!</green>",
+)

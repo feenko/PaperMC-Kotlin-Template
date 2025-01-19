@@ -12,8 +12,8 @@ class ExampleLoader : PluginLoader {
     val resolver =
       MavenLibraryResolver().apply {
         listOf(
-          "codemc" to "https://repo.codemc.org/repository/maven-public/",
-          "okaeri" to "https://storehouse.okaeri.eu/repository/maven-public/",
+          "mavenCentral" to "https://repo1.maven.org/maven2/",
+          "codeMc" to "https://repo.codemc.org/repository/maven-public/",
         )
           .forEach { (id, url) ->
             addRepository(RemoteRepository.Builder(id, "default", url).build())
@@ -22,8 +22,8 @@ class ExampleLoader : PluginLoader {
         listOf(
           "dev.jorel:commandapi-bukkit-shade-mojang-mapped:9.7.0",
           "dev.jorel:commandapi-bukkit-kotlin:9.7.0",
-          "eu.okaeri:okaeri-configs-yaml-bukkit:5.0.5",
-          "eu.okaeri:okaeri-validator:2.0.4",
+          "org.spongepowered:configurate-yaml:4.1.2",
+          "org.spongepowered:configurate-extra-kotlin:4.1.2",
         )
           .forEach { dependency ->
             addDependency(Dependency(DefaultArtifact(dependency), null))

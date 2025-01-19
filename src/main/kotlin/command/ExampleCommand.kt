@@ -15,11 +15,7 @@ class ExampleCommand(private val plugin: Example) {
           .withPermission("example.hello")
           .executes(
             CommandExecutor { sender, _ ->
-              sender.sendMessage(
-                mm.deserialize(
-                  plugin.messagesConfig.helloWorld,
-                ),
-              )
+              sender.sendMessage(mm.deserialize(plugin.messagesConfig.helloWorld))
             },
           ),
       )
@@ -28,12 +24,8 @@ class ExampleCommand(private val plugin: Example) {
           .withPermission("example.reload")
           .executes(
             CommandExecutor { sender, _ ->
-              plugin.configService.reloadAllConfigs()
-              sender.sendMessage(
-                mm.deserialize(
-                  "<green>Configuration reloaded successfully!</green>",
-                ),
-              )
+              plugin.reloadConfigs()
+              sender.sendMessage(mm.deserialize(plugin.messagesConfig.reloadSuccess))
             },
           ),
       )

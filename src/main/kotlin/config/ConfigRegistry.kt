@@ -1,29 +1,21 @@
 package com.example.example.config
 
-import eu.okaeri.configs.OkaeriConfig
 import java.util.concurrent.ConcurrentHashMap
 import kotlin.reflect.KClass
 
 internal class ConfigRegistry {
-  private val configMap = ConcurrentHashMap<KClass<out OkaeriConfig>, OkaeriConfig>()
-  private val readLock = Any()
+  private val configs = ConcurrentHashMap<KClass<*>, Any>()
 
-  fun <T : OkaeriConfig> register(configClass: Class<T>, config: T) {
-    configMap[configClass.kotlin] = config
-  }
-
-  inline fun <reified T : OkaeriConfig> get(): T = synchronized(readLock) {
-    configMap[T::class]?.let { it as T }
-      ?: error("Config ${T::class.simpleName} not found")
-  }
-
-  fun getAll(): Collection<OkaeriConfig> = configMap.values.toList()
-
-  fun clear() {
-    synchronized(readLock) {
-      configMap.clear()
+  fun <T : Any> register(configClass: Class<T>, config: Any) {
+    if (!configClass.isInstance(config)) {
+      throw IllegalArgumentException("Config instance does not match expected class")
     }
+    configs[configClass.kotlin] = config
   }
 
-  fun size(): Int = configMap.size
+  @Suppress("UNCHECKED_CAST")
+  inline fun <reified T : Any> get(): T = configs[T::class] as? T
+    ?: throw IllegalStateException("Config ${T::class.simpleName} not found")
+
+  fun getAll(): List<Any> = configs.values.toList()
 }

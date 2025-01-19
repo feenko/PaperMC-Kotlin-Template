@@ -9,7 +9,7 @@ A modern, feature-rich template for creating Minecraft plugins using PaperMC and
     - [x] Shadow plugin for creating fat JARs
     - [x] Paperweight for NMS access
 - [x] [CommandAPI](https://commandapi.jorel.dev/) for creating commands
-- [x] [Okaeri Configs](https://github.com/OkaeriPoland/okaeri-configs) for configuration
+- [x] [Configurate](https://github.com/SpongePowered/Configurate/) for configuration
 - [x] CI/CD with [GitHub Actions](https://github.com/features/actions)
     - [x] Automated code formatting with [Spotless](.github/workflows/spotless.yml)
 - [x] [run-task](https://github.com/jpenilla/run-task) for running the development server
