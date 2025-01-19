@@ -57,11 +57,11 @@ tasks {
 
 spotless {
   kotlin {
-    ktlint("1.5.0").setEditorConfigPath("$rootDir/.editorconfig")
+    ktlint("1.5.0")
   }
 
   kotlinGradle {
-    ktlint("1.5.0").setEditorConfigPath("$rootDir/.editorconfig")
+    ktlint("1.5.0")
   }
 
   yaml {
