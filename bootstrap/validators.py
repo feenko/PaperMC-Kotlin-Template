@@ -32,4 +32,4 @@ def to_kebab(s: str, upper: bool = False) -> str:
     kebab = re.sub(
         "([a-z0-9])([A-Z])", r"\1-\2", re.sub("([A-Z])([A-Z][a-z])", r"\1-\2", s)
     ).lower()
-    return "-".join(word.capitalize() for word in kebab.split("-")) if upper else kebab
+    return "-".join(word.capitalize() for word in kebab.split("-")) if upper else kebab.lower()
