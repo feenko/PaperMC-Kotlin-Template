@@ -1,0 +1,10 @@
+name: PaperMC-Kotlin-Example
+description: A minimal example of a PaperMC plugin written in Kotlin
+author: Feenko
+
+version: "${version}"
+api-version: "1.21.4"
+
+main: com.example.example.Example
+loader: com.example.example.ExampleLoader
+prefix: Example-Kotlin

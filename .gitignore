@@ -1,0 +1,81 @@
+# package files
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# compiled class files
+*.class
+
+# gradle
+.gradle/
+gradle-app.setting
+!gradle-wrapper.jar
+!gradle-wrapper.properties
+.gradletasknamecache
+
+# kotlin
+.kotlin/
+*.kotlin_module
+*.kotlin_metadata
+*.kotlin_builtins
+
+# build outputs
+build/
+bin/
+out/
+run/
+
+# log files
+*.log
+logs/
+
+# jetbrains
+*.iml
+*.ipr
+*.iws
+/.idea/*
+
+# jetbrains - exclude non-user-specific stuff
+!.idea/.name
+!.idea/codeInsightSettings.xml
+!.idea/codeStyles/
+!.idea/copyright/
+!.idea/dataSources.xml
+!.idea/detekt.xml
+!.idea/encodings.xml
+!.idea/externalDependencies.xml
+!.idea/file.template.settings.xml
+!.idea/fileTemplates/
+!.idea/icon.svg
+!.idea/inspectionProfiles/
+!.idea/runConfigurations/
+!.idea/scopes/
+!.idea/vcs.xml
+
+# vscode
+.vscode/
+
+# cursor
+.cursorrules
+
+# virtual machine crash logs
+hs_err_pid*
+replay_pid*
+
+# os-specific files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+[Dd]esktop.ini
+$RECYCLE.BIN/
+
+# bootstrap (python)
+__pycache__/

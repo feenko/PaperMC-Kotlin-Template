@@ -1,0 +1,22 @@
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+indent_size = 2
+indent_style = space
+insert_final_newline = true
+max_line_length = 120
+tab_width = 2
+trim_trailing_whitespace = true
+
+[{*.kt,*.kts}]
+ktlint_code_style = intellij_idea
+ktlint_standard_filename = true
+ktlint_standard_function-naming = true
+ktlint_standard_import-ordering = true
+ktlint_standard_trailing-comma-on-call-site = true
+ktlint_standard_trailing-comma-on-declaration-site = true
+
+[*.{yml,yaml}]
+indent_size = 2
