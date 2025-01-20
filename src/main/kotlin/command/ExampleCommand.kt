@@ -17,7 +17,7 @@ class ExampleCommand(
           .withPermission("example.hello")
           .executes(
             CommandExecutor { sender, _ ->
-              sender.sendMessage(mm.deserialize(plugin.messagesConfig.helloWorld))
+              sender.sendMessage(mm.deserialize(plugin.messagesConfig.hello.world))
             },
           ),
       ).withSubcommand(
@@ -26,7 +26,7 @@ class ExampleCommand(
           .executes(
             CommandExecutor { sender, _ ->
               plugin.reloadConfigs()
-              sender.sendMessage(mm.deserialize(plugin.messagesConfig.reloadSuccess))
+              sender.sendMessage(mm.deserialize(plugin.messagesConfig.reload.success))
             },
           ),
       ).register()
