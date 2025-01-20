@@ -4,17 +4,20 @@ A modern, feature-rich template for creating Minecraft plugins using PaperMC and
 
 ## Features
 
-- [x] Modern [PaperMC](https://papermc.io/) API
-- [x] [Gradle](https://gradle.org/) with Kotlin DSL
-    - [x] Shadow plugin for creating fat JARs
-    - [x] Paperweight for NMS access
-- [x] [CommandAPI](https://commandapi.jorel.dev/) for creating commands
-- [x] [Configurate](https://github.com/SpongePowered/Configurate/) for configuration
-- [x] CI/CD with [GitHub Actions](https://github.com/features/actions)
+- [x] Modern [PaperMC](https://github.com/PaperMC/Paper) API
+    - [x] Uses [Loaders](https://docs.papermc.io/paper/dev/getting-started/paper-plugins#loaders) instead of ShadowJars.
+- [x] [Gradle](https://github.com/gradle/gradle) with Kotlin DSL
+    - [x] Includes [Paperweight](https://github.com/PaperMC/paperweight) for NMS access.
+- [x] [CommandAPI](https://github.com/CommandAPI/CommandAPI) for streamlined command creation.
+- [x] [Configurate](https://github.com/SpongePowered/Configurate/) for flexible and powerful configuration management.
+- [x] CI/CD integration with [GitHub Actions](https://github.com/features/actions)
     - [x] Automated code formatting with [Spotless](.github/workflows/spotless.yml)
-- [x] [run-task](https://github.com/jpenilla/run-task) for running the development server
-- [x] [Bootstraper](./bootstrap.py) for making project your own
-- [ ] Database support
+- [x] [run-task](https://github.com/jpenilla/run-task) for easily running the development server.
+- [x] Ready to use utilities
+    - [x] [Logger](./src/main/kotlin/Logger.kt)
+- [x] Bootstrapper script ([bootstrap.py](./bootstrap.py)) to quickly customize and initialize your project.
+- [ ] Database support using [HikariCP](https://github.com/brettwooldridge/HikariCP)
+- [ ] Metrics using [bStats](https://github.com/Bastian/bStats)
 
 ## Usage
 
