@@ -75,8 +75,8 @@ def main() -> None:
             "Use Git version control? (Y/n)",
             "Keep Git-specific files (e.g. .gitignore, .gitattributes)",
             default="y",
-            validator=lambda x: x.lower() in ["y", "n", "yes", "no"],
-        ).lower() in ["y", "yes"]
+            validator=validate_yes_no,
+        ) in ["y", "yes"]
 
         if not use_git:
             remove_git_files()
@@ -86,8 +86,8 @@ def main() -> None:
                 "Use GitHub features? (Y/n)",
                 "Keep GitHub-specific files and workflows",
                 default="y",
-                validator=lambda x: x.lower() in ["y", "n", "yes", "no"],
-            ).lower() in ["y", "yes"]
+                validator=validate_yes_no,
+            ) in ["y", "yes"]
 
             if not use_github:
                 remove_github_files()
@@ -96,8 +96,8 @@ def main() -> None:
             "Remove bootstrap files? (y/N)",
             "Clear any footprints of the bootstrap process",
             default="n",
-            validator=lambda x: x.lower() in ["y", "n", "yes", "no"],
-        ).lower() in ["y", "yes"]
+            validator=validate_yes_no,
+        ) in ["y", "yes"]
 
         if cleanup:
             if self_destruct():

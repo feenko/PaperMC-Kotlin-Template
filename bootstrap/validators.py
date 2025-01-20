@@ -28,6 +28,13 @@ def validate_kotlin_version(value: str) -> str:
     return value
 
 
+def validate_yes_no(value: str) -> str:
+    lowered = value.lower()
+    if lowered in ["y", "n", "yes", "no"]:
+        return lowered
+    raise ValueError("Please enter y/n")
+
+
 def to_kebab(s: str, upper: bool = False) -> str:
     kebab = re.sub(
         "([a-z0-9])([A-Z])", r"\1-\2", re.sub("([A-Z])([A-Z][a-z])", r"\1-\2", s)
