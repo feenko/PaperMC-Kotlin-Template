@@ -16,7 +16,7 @@ public class ExampleLoader implements PluginLoader {
   private static final RemoteRepository CODE_MC =
       newRepository("codemc", "https://repo.codemc.org/repository/maven-public/");
 
-  private static final String KOTLIN_VERSION = "2.1.0";
+  private static final String KOTLIN_VERSION = "2.1.20-Beta1";
   private static final String KOTLIN_GROUP = "org.jetbrains.kotlin";
 
   private static final List<String> RUNTIME_DEPENDENCIES =
