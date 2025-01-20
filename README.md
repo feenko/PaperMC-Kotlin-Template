@@ -1,3 +1,5 @@
+![PaperMC Kotlin Template](assets/banner.png)
+
 # PaperMC Kotlin Template
 
 > [!WARNING]

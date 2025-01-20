@@ -47,6 +47,10 @@ def self_destruct() -> bool:
         if readme.exists():
             readme.unlink()
 
+        assets_dir = Path("assets")
+        if assets_dir.exists():
+            shutil.rmtree(assets_dir)
+
         gitignore = Path(".gitignore")
         if gitignore.exists():
             content = gitignore.read_text()
