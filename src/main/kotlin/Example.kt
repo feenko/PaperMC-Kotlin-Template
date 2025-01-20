@@ -9,24 +9,18 @@ import org.bukkit.plugin.java.JavaPlugin
 
 class Example : JavaPlugin() {
   private lateinit var configLifecycle: ConfigLifecycle
+  lateinit var pluginLogger: Logger
+    private set
 
-  val messagesConfig: MessagesConfig
-    get() = configLifecycle.get()
-
-  fun reloadConfigs() {
-    try {
-      configLifecycle.reload()
-    } catch (e: Exception) {
-      logger.severe("Failed to reload configs: ${e.message}")
-      e.printStackTrace()
-      configLifecycle.initialize<MessagesConfig>("messages.yml")
-    }
-  }
+  val messagesConfig: MessagesConfig get() = configLifecycle.get()
 
   override fun onLoad() {
+    pluginLogger = Logger(this)
     CommandAPI.onLoad(CommandAPIBukkitConfig(this))
-    configLifecycle = ConfigLifecycle(this)
-    configLifecycle.initialize<MessagesConfig>("messages.yml")
+    configLifecycle =
+      ConfigLifecycle(this).apply {
+        initialize<MessagesConfig>("messages.yml")
+      }
   }
 
   override fun onEnable() {
@@ -38,4 +32,12 @@ class Example : JavaPlugin() {
     CommandAPI.onDisable()
     configLifecycle.save()
   }
+
+  fun reloadConfigs() =
+    try {
+      configLifecycle.reload()
+    } catch (e: Exception) {
+      pluginLogger.severe("Failed to reload configs: ${e.message}", e)
+      configLifecycle.initialize<MessagesConfig>("messages.yml")
+    }
 }

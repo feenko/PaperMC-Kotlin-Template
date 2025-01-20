@@ -1,36 +1,35 @@
 package com.example.example.config
 
 import com.example.example.Example
-import kotlin.reflect.KClass
+import com.example.example.config.exception.ConfigException
 
-internal class ConfigLifecycle(plugin: Example) {
+internal class ConfigLifecycle(private val plugin: Example) {
   private val provider = ConfigProvider(plugin.dataFolder)
   private val registry = ConfigRegistry()
-  private val fileNames = mutableMapOf<KClass<*>, String>()
+  private val configFiles = mutableMapOf<Class<*>, String>()
 
   inline fun <reified T : Any> initialize(fileName: String): T {
-    val config = provider.load<T>(fileName)
+    val config = provider.loadWithClass(fileName, T::class.java, plugin.pluginLogger)
     registry.register(T::class.java, config)
-    fileNames[T::class] = fileName
+    configFiles[T::class.java] = fileName
     return config
   }
 
-  fun reload() {
-    registry.getAll().forEach { config ->
-      val fileName = fileNames[config::class]
-        ?: error("No filename registered for ${config::class.simpleName}")
-      val reloaded = provider.loadWithClass(fileName, config::class.java)
-      registry.register(config::class.java, reloaded)
+  inline fun <reified T : Any> get(): T = registry.get()
+
+  fun reload() = try {
+    registry.clear()
+    configFiles.forEach { (clazz, fileName) ->
+      val config = provider.loadWithClass(fileName, clazz, plugin.pluginLogger)
+      registry.register(clazz, config)
     }
+  } catch (e: Exception) {
+    throw ConfigException("Failed to reload configurations", e)
   }
 
-  fun save() {
-    registry.getAll().forEach { config ->
-      val fileName = fileNames[config::class]
-        ?: error("No filename registered for ${config::class.simpleName}")
+  fun save() = configFiles.forEach { (clazz, fileName) ->
+    registry.get<Any>().takeIf { it::class.java == clazz }?.let { config ->
       provider.save(fileName, config)
     }
   }
-
-  inline fun <reified T : Any> get(): T = registry.get()
 }
