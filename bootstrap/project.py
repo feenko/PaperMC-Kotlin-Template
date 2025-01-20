@@ -82,8 +82,10 @@ class ProjectSetup:
                     content = re.sub(f"import {old_pkg}", f"import {new_pkg}", content)
                 else:
                     content = content.replace(old_pkg, new_pkg)
-                    if "Example" in content and not "ExampleCommand" in content:
-                        content = content.replace("Example", config["name"])
+                    if "Example" in content:
+                        content = re.sub(
+                            r"Example(?!Command\b)", config["name"], content
+                        )
 
                 self.update_file(file, content)
 
