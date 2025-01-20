@@ -1,6 +1,9 @@
 # PaperMC Kotlin Template
 
-A modern, feature-rich template for creating Minecraft plugins using PaperMC and Kotlin. This template provides a solid foundation for developing high-performance, maintainable plugins with the latest tools and best practices.
+> [!WARNING]
+> This is a personal project created for fun and to help me quickly bootstrap new plugin projects. It's not recommended for serious/production use and likely contains bugs. Use at your own risk!
+
+A modern, feature-rich template for creating Minecraft plugins using PaperMC and Kotlin. This template provides a foundation for developing high-performance, maintainable plugins with the latest tools and best practices.
 
 ## Features
 
