@@ -13,9 +13,9 @@ A modern, feature-rich template for creating Minecraft plugins using PaperMC and
     - [x] Includes [Paperweight](https://github.com/PaperMC/paperweight) for NMS access.
 - [x] [CommandAPI](https://github.com/CommandAPI/CommandAPI) for streamlined command creation.
 - [x] [Configurate](https://github.com/SpongePowered/Configurate/) for flexible and powerful configuration management.
-- [x] CI/CD integration with [GitHub Actions](https://github.com/features/actions)
-    - [x] Automated code formatting with [Spotless](.github/workflows/spotless.yml)
 - [x] [run-task](https://github.com/jpenilla/run-task) for easily running the development server.
+- [x] CI/CD ([GitHub Actions](https://github.com/features/actions))
+    - [x] Automated code formatting with [Spotless](.github/workflows/spotless.yml)
 - [x] Ready to use utilities
     - [x] [Logger](./src/main/kotlin/Logger.kt)
 - [x] Bootstrapper script ([bootstrap.py](./bootstrap.py)) to quickly customize and initialize your project.
