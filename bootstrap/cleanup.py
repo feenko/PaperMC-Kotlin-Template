@@ -55,7 +55,7 @@ def self_destruct() -> bool:
         if gitignore.exists():
             content = gitignore.read_text()
             new_content = re.sub(
-                r"# bootstrap \(python\)\n__pycache__/\n+", "", content
+                r"\n# bootstrap \(python\)\n__pycache__/\n+", "", content
             )
             gitignore.write_text(new_content)
 
