@@ -5,7 +5,9 @@ import dev.jorel.commandapi.CommandAPICommand
 import dev.jorel.commandapi.executors.CommandExecutor
 import net.kyori.adventure.text.minimessage.MiniMessage
 
-class ExampleCommand(private val plugin: Example) {
+class ExampleCommand(
+  private val plugin: Example,
+) {
   private val mm = MiniMessage.miniMessage()
 
   fun register() {
@@ -18,8 +20,7 @@ class ExampleCommand(private val plugin: Example) {
               sender.sendMessage(mm.deserialize(plugin.messagesConfig.helloWorld))
             },
           ),
-      )
-      .withSubcommand(
+      ).withSubcommand(
         CommandAPICommand("reload")
           .withPermission("example.reload")
           .executes(
@@ -28,7 +29,6 @@ class ExampleCommand(private val plugin: Example) {
               sender.sendMessage(mm.deserialize(plugin.messagesConfig.reloadSuccess))
             },
           ),
-      )
-      .register()
+      ).register()
   }
 }
