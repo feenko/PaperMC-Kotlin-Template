@@ -1,38 +1,8 @@
 import argparse
-import re
-import shutil
-from pathlib import Path
 from typing import Any, Dict
 
 from bootstrap import *
-
-
-def self_destruct() -> bool:
-    try:
-        bootstrap_dir = Path("bootstrap")
-        if bootstrap_dir.exists():
-            shutil.rmtree(bootstrap_dir)
-
-        bootstrap_script = Path("bootstrap.py")
-        if bootstrap_script.exists():
-            bootstrap_script.unlink()
-
-        readme = Path("README.md")
-        if readme.exists():
-            readme.unlink()
-
-        gitignore = Path(".gitignore")
-        if gitignore.exists():
-            content = gitignore.read_text()
-            new_content = re.sub(
-                r"# bootstrap \(python\)\n__pycache__/\n+", "", content
-            )
-            gitignore.write_text(new_content)
-
-        return True
-
-    except Exception:
-        return False
+from bootstrap.cleanup import remove_git_files, remove_github_files, self_destruct
 
 
 def main() -> None:
@@ -47,7 +17,7 @@ def main() -> None:
         "kotlin_version": get_input(
             "Kotlin version",
             "The Kotlin version to use (2.1.20-Beta1 or 2.1.0)",
-            default="2.1.0",
+            default="2.1.20-Beta1",
             validator=validate_kotlin_version,
         ),
         "group_id": get_input(
@@ -101,12 +71,33 @@ def main() -> None:
     )
 
     if not args.dry:
+        use_git = get_input(
+            "Use Git version control? (Y/n)",
+            "Keep Git-specific files (e.g. .gitignore, .gitattributes)",
+            default="y",
+            validator=lambda x: x.lower() in ["y", "n", "yes", "no"],
+        ).lower() in ["y", "yes"]
+
+        if not use_git:
+            remove_git_files()
+            remove_github_files()
+        else:
+            use_github = get_input(
+                "Use GitHub features? (Y/n)",
+                "Keep GitHub-specific files and workflows",
+                default="y",
+                validator=lambda x: x.lower() in ["y", "n", "yes", "no"],
+            ).lower() in ["y", "yes"]
+
+            if not use_github:
+                remove_github_files()
+
         cleanup = get_input(
             "Remove bootstrap files? (y/N)",
             "Clear any footprints of the bootstrap process",
             default="n",
             validator=lambda x: x.lower() in ["y", "n", "yes", "no"],
-        )
+        ).lower() in ["y", "yes"]
 
         if cleanup:
             if self_destruct():

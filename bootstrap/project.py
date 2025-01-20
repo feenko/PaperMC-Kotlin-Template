@@ -73,13 +73,18 @@ class ProjectSetup:
             new_pkg = f"{config['group_id']}.{config['name'].lower()}"
 
             for file in src_dir.rglob("*.kt"):
-                if file.name == "ExampleCommand.kt":
-                    continue
-
                 content = file.read_text(encoding="utf-8")
-                content = content.replace(old_pkg, new_pkg).replace(
-                    "Example", config["name"]
-                )
+
+                if file.name == "ExampleCommand.kt":
+                    content = re.sub(
+                        f"package {old_pkg}", f"package {new_pkg}", content
+                    )
+                    content = re.sub(f"import {old_pkg}", f"import {new_pkg}", content)
+                else:
+                    content = content.replace(old_pkg, new_pkg)
+                    if "Example" in content and not "ExampleCommand" in content:
+                        content = content.replace("Example", config["name"])
+
                 self.update_file(file, content)
 
                 if (
@@ -89,3 +94,46 @@ class ProjectSetup:
                 ):
                     new_name = file.name.replace("Example", config["name"])
                     file.rename(file.parent / new_name)
+
+        java_src_dir = Path("src/main/java")
+        if java_src_dir.exists():
+            old_pkg = "com.example.example"
+            new_pkg = f"{config['group_id']}.{config['name'].lower()}"
+            old_path = java_src_dir / "com" / "example" / "example"
+            new_path = java_src_dir
+
+            for part in new_pkg.split("."):
+                new_path = new_path / part
+                if not self.dry_run:
+                    new_path.mkdir(exist_ok=True)
+
+            for file in old_path.rglob("*.java"):
+                content = file.read_text(encoding="utf-8")
+
+                content = content.replace(old_pkg, new_pkg)
+
+                if "Example" in content:
+                    content = re.sub(r"Example(?!Command\b)", config["name"], content)
+
+                rel_path = file.relative_to(old_path)
+                new_file = new_path / rel_path
+
+                if "Example" in new_file.name and not "ExampleCommand" in new_file.name:
+                    new_file = new_file.parent / new_file.name.replace(
+                        "Example", config["name"]
+                    )
+
+                if not self.dry_run:
+                    new_file.parent.mkdir(parents=True, exist_ok=True)
+                    if file != new_file:
+                        file.rename(new_file)
+
+                self.update_file(new_file if not self.dry_run else file, content)
+
+            if not self.dry_run and old_path != new_path:
+                try:
+                    old_path.rmdir()
+                    old_path.parent.rmdir()
+                    old_path.parent.parent.rmdir()
+                except OSError:
+                    pass
