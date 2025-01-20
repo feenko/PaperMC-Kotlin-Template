@@ -3,7 +3,6 @@ plugins {
   id("xyz.jpenilla.run-paper") version "2.3.1"
   id("com.diffplug.spotless") version "7.0.2"
   id("io.papermc.paperweight.userdev") version "2.0.0-beta.14"
-  id("com.gradleup.shadow") version "9.0.0-beta4"
 }
 
 group = "com.example"
@@ -32,18 +31,13 @@ kotlin {
   jvmToolchain(21)
 }
 
-tasks {
-  shadowJar {
-    minimize()
-    mergeServiceFiles()
-
-    dependencies {
-      include(dependency("org.jetbrains.kotlin:.*"))
-    }
-
-    relocate("kotlin", "com.example.example.shadow.kotlin")
+java {
+  toolchain {
+    languageVersion.set(JavaLanguageVersion.of(21))
   }
+}
 
+tasks {
   processResources {
     filesMatching("paper-plugin.yml") {
       expand("version" to version)
@@ -62,6 +56,13 @@ spotless {
 
   kotlinGradle {
     ktlint("1.5.0")
+  }
+
+  java {
+    googleJavaFormat()
+    removeUnusedImports()
+    trimTrailingWhitespace()
+    endWithNewline()
   }
 
   yaml {
